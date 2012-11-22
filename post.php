@@ -288,8 +288,8 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 frm.password.backgroundColor = "red";
                 return false;
             }
-            if(frm.password.value.length <= 6){
-                alert("Please must be more the five characters");
+            if(frm.password.value.length <= 5){
+                alert("Password must be more the five characters");
                 frm.password.focus();
                 frm.password.backgroundColor = "red";
                 return false;
@@ -309,8 +309,8 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 frm.reg_password.backgroundColor = "red";
                 return false;
             }
-            if(frm.reg_password.value.length <= 6){
-                alert("Please must be more the five characters");
+            if(frm.reg_password.value.length <= 5){
+                alert("Password must be more the five characters");
                 frm.reg_password.focus();
                 frm.reg_password.backgroundColor = "red";
                 return false;
