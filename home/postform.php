@@ -33,18 +33,21 @@
                             <option value="<?php echo $vender_row['id']?>"><?php echo ucwords($vender_row['name']); ?></option>
                             <?php } ?>
                         </select>
+                        <script type="text/javascript">
+                            document.getElementById('make_model').value = <?php echo $_REQUEST['vendor_id']?>;
+                        </script>
                     </div>
 
                     <div class="form-input clearfix">
                         <label for="make_modelsub">Model</label>
-                        <select name="model_id" id="make_modelsub" disabled="disabled" class="required-field" ></select>
+                        <select name="model_id" id="make_modelsub" disabled="disabled" class="required-field"></select>
+                        <span style="padding:10px; line-height: 30px">Please select Make to get its Models</span>
                     </div>
-
                     <div class="form-input clearfix">
                         <label for="price">Price</label>
                         <input name="price" id="price" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['price']?>">
                     </div>
-                    
+
                     <div class="form-input clearfix">
                         <label for="vin">VIN #</label>
                         <input name="vin_no" id="vin" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['vin_no']?>">
@@ -54,20 +57,13 @@
                         <label for="regyear">Year</label>
                         <select name="year" id="regyear" class="postform required-field">
                             <option value="0" selected="selected">Select Year</option>
-                            <option class="level-0" value="2012">2012</option>
-                            <option class="level-0" value="2011">2011</option>
-                            <option class="level-0" value="2011">2010</option>
-                            <option class="level-0" value="2011">2009</option>
-                            <option class="level-0" value="2011">2008</option>
-                            <option class="level-0" value="2011">2007</option>
-                            <option class="level-0" value="2011">2006</option>
-                            <option class="level-0" value="2011">2005</option>
-                            <option class="level-0" value="2011">2004</option>
-                            <option class="level-0" value="2011">2003</option>
-                            <option class="level-0" value="2011">2002</option>
-                            <option class="level-0" value="2011">2001</option>
-                            <option class="level-0" value="2011">2000</option>
+                            <?php for($i=2012;$i>=1950;$i--){ ?>
+                            <option class="level-0" value="<?php echo $i ?>"><?php echo $i ?></option>
+                            <?php } ?>
                         </select>
+                        <script type="text/javascript">
+                            document.getElementById('regyear').value = <?php echo $_REQUEST['year']?>;
+                        </script>
                     </div>
 
                     <div class="form-input clearfix">
@@ -84,7 +80,9 @@
                             <option value="Pishawar">Peshawar</option>
                         </select>
                     </div>
-
+                    <script type="text/javascript">
+                        document.getElementById('locationsub').value = <?php echo $_REQUEST['reg_city']?>;
+                    </script>
                     <div class="form-input clearfix">
                         <label for="condition">Condition</label>
                         <select name="condition" id="condition" class="postform required-field">
@@ -96,19 +94,21 @@
                             <option class="level-0" value="poor">Poor</option>
                         </select>                       
                     </div>
-
+                    <script type="text/javascript">
+                        document.getElementById('condition').value = <?php echo strtolower(str_replace(" ","_",$_REQUEST['condition']));?>;
+                    </script>
                     <div class="form-input clearfix">
                         <label for="mileage">Mileage</label>
                         <input name="mileage" id="mileage" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['mileage']?>">
                     </div>
                     <div class="form-input clearfix">
                         <label for="title">Title</label>
-                        <input name="title" id="title" size="50" maxlength="60" class="required-field" type="text" value="<?php echo $_REQUEST['mileage']?>">
+                        <input name="title" id="title" size="50" maxlength="60" class="required-field" type="text" value="<?php echo $_REQUEST['title']?>">
                     </div>
 
                     <div class="form-input clearfix">
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" class="required-field" cols="50" rows="5"><?php echo $_REQUEST['description']?></textarea>
+                        <textarea name="description" id="description" class="required-field" cols="50" rows="5"><?php echo $_REQUEST['description'] ?></textarea>
                     </div>
 
                     <!-- upload photos -->
@@ -118,43 +118,41 @@
                         <label class="description">You can choose multiple images.</label>
                     </div>
                     <!-- end - upload photos -->
-                    <label style="margin: 5px 0 5px 0; font-weight:bold; color:#FF4A4A ">
-                        <input name="userAuthType" type="radio" id="userLoginCheck" value="login" />
-                        I am Already Member</label>
+                    <label for="userLoginCheck" style="margin: 5px 0 5px 0; font-weight:bold; color:#FF4A4A ">
+                        <input name="userAuthType" type="radio" id="userLoginCheck" value="login" />I am Already Member</label>
 					<fieldset id="user-login" style="display: none;">
                     	 <div class="form-input clearfix">
                             <label for="username">Username</label>
-                            <input name="username" id="username" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['username']?>">
+                            <input name="uname" id="username" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['uname'] ?>">
                         </div>
                         <div class="form-input clearfix">
                             <label for="password">Password</label>
-                            <input name="password" id="password" size="35" class="required-field" type="password" value="<?php echo $_REQUEST['password']?>">
+                            <input name="pword" id="password" size="35" class="required-field" type="password" value="<?php echo $_REQUEST['password'] ?>">
                         </div>
                     </fieldset>
 
-                    <p style="margin: 5px 0 5px 0; font-weight:bold; color:#FF4A4A ">
-                        <input name="userAuthType" type="radio" id="userRegisterCheck" value="register" />I am a New Member</p>
+                    <label for="userRegisterCheck" style="margin: 5px 0 5px 0; font-weight:bold; color:#FF4A4A "><input name="userAuthType" type="radio" id="userRegisterCheck" value="register" />
+                        I am a New Member</label>
                     <fieldset id="user-register" style="display: none;">
                         <div class="form-input clearfix">
-                            <label for="full_name">Full Name</label>
-                            <input name="full_name" id="full_name" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['full_name']?>">
-                        </div>
-
-                        <div class="form-input clearfix">
-                            <label for="user_name">User Name</label>
-                            <input name="user_name" id="user_name" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['user_name']?>">
+                            <label for="reg-name">Name</label>
+                            <input name="reg_name" id="reg-name" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['reg_name'] ?>">
                         </div>
                         <div class="form-input clearfix">
-                            <label for="new_email">Email</label>
-                            <input name="new_email" id="new_email" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['new_email']?>">
+                            <label for="reg_username">User Name</label>
+                            <input name="reg_username" id="reg_username" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['reg_username'] ?>">
+                        </div>
+                        <div class="form-input clearfix">
+                            <label for="reg-email">Email</label>
+                            <input name="reg_email" id="reg-email" size="35" class="required-field" type="text" value="<?php echo $_REQUEST['reg_email'] ?>">
                         </div>
                         <div class="form-input clearfix">
                             <label for="reg_password">Password</label>
-                            <input name="reg_pass" id="reg_password" size="35" class="required-field" type="password" value="<?php echo $_REQUEST['reg_pass']?>">
+                            <input name="reg_pass" id="reg_password" size="35" class="required-field" type="password" value="<?php echo $_REQUEST['reg_pass'] ?>">
                         </div>
                         <div class="form-input clearfix">
                             <label for="password2">Re-type Password</label>
-                            <input name="password2" id="password2" size="35" class="required-field" type="password" value="<?php echo $_REQUEST['password2']?>">
+                            <input name="password2" id="password2" size="35" class="required-field" type="password">
                         </div>
                     </fieldset>
                     <div class="form-input clearfix">
@@ -192,8 +190,7 @@
 					
                     <div class="form-input clearfix">
                         <label class="label_check clearfix" for="chbx_terms">
-                            <input name="chbx_terms" id="chbx_terms" checked="checked" type="checkbox">I agree to the
-                            terms and conditions </label>
+                            <input name="chbx_terms" id="chbx_terms" checked="checked" type="checkbox">I agree to the terms and conditions </label>
                     </div>
 
                     <div class="form-input clearfix">

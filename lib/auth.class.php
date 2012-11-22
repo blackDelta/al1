@@ -27,7 +27,7 @@
 		}
 
 		function login($user,$pass,$table){
-            $query = "select id from ".$table." where email='".$user."' and password = '".$pass."'";
+            $query = "select id from ".$table." where username='".$user."' and password = '".$pass."'";
             $result = $this->db->execute_query($query,true);
             $row = $this->db->get_row($result);
             if($row['id'] > 0){
@@ -38,7 +38,7 @@
             }
         }
 		function create_session($userid){
-			$_SESSION['uid']=$userid;
+			$_SESSION['uid']= $userid;
 		}
 		function update_status($status){
 			$uid=$this->get_id();

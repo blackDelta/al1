@@ -83,7 +83,7 @@
                 password = '".$password."'";
             if($this->db->execute_query($query))
             {
-                return $this->db->get_inserted_id;
+                return $this->db->get_inserted_id();
             }
             else
             {
@@ -179,5 +179,7 @@
 			$row=$this->db->fetch_array_by_query($query);
 			return $row['yearly_discount'];
 		}
+		
 	}
+	$user=new Users($db);
 ?>

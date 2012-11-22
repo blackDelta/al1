@@ -80,6 +80,8 @@ class Advertisement
                 if($this->insert_image($destination,$ad_id))
                 {
                     return true;
+                }else{
+                    die("problem");
                 }
             }
             else

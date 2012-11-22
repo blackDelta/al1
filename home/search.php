@@ -1,9 +1,9 @@
-<!-- #search -->
-<div class="grid_4">
-    <h4 class="section-title section-line">Search Cars</h4>
+<div id="dox_wid_search_autos-2" class="widget dox_wid_search_autos">
+    <h3>Search Cars</h3>
 
-    <div id="homeSearch">
-        <form id="homeSearchForm" action="" method="post">
+    <div class="search-autos-box">
+        <form id="" action="" method="post">
+
             <div class="form-input clearfix">
                 <label for="make_model">Make</label>
                 <select name="make_model[]" id="make_model">
@@ -35,7 +35,7 @@
 
             <div class="form-input clearfix">
                 <label for="location">Location</label>
-                <select name="location[]" id="location">
+                <select name="location" id="location">
                     <option value="-1" selected="selected">Select Location</option>
                     <option value="44">Alabama</option>
                     <option value="45">Arizona</option>
@@ -68,10 +68,10 @@
 
             <div class="form-input clearfix">
                 <input name="auto_search" id="auto_search" value="true" type="hidden">
-                <input id="homeSearchButton" name="homeSearchButton" value="Search" type="submit">
-                <a href="" class="advancedSearch">Advanced Search</a>
+                <input id="searchAutosBoxButton" name="searchAutosBoxButton" value="Search" type="submit">
+                <a href="http://wp.inoart.com/demo/autotrader/advanced-search/" class="advancedSearch">Advanced Search</a>
             </div>
 
         </form>
     </div>
-</div><!-- end - #search -->
+</div>

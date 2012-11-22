@@ -5,7 +5,7 @@
  * Date: 11/2/12
  * Time: 6:13 PM
  * This file contains all configuration of project */
-
+session_start();
 $config = array();
 
 /**
