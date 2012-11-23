@@ -51,7 +51,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                     <li><span>Price</span>175000 USD</li>
                 </ul>
                 <a href="" class="watchlist-button button">Add to Watchlist</a>
-                <a href="" class="button" target="_blank">View Details</a>
+                <a href="details.php" class="button" target="_blank">View Details</a>
             </div>
         </div>
 
@@ -87,7 +87,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 </ul>
                 <a href="http://wp.inoart.com/demo/autotrader/auto/make_model/audi/?watchlist=139"
                    class="watchlist-button button">Add to Watchlist</a>
-                <a href="http://wp.inoart.com/demo/autotrader/auto/used-audi-quattro-2009-2-dr-cpe/" class="button"
+                <a href="details.php" class="button"
                    target="_blank">View Details</a>
             </div>
         </div>
@@ -124,7 +124,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 </ul>
                 <a href="http://wp.inoart.com/demo/autotrader/auto/make_model/audi/?watchlist=155"
                    class="watchlist-button button">Add to Watchlist</a>
-                <a href="http://wp.inoart.com/demo/autotrader/auto/used-audi-a1-2dr-cpe-2010/" class="button"
+                <a href="details.php" class="button"
                    target="_blank">View Details</a>
             </div>
         </div>
@@ -161,7 +161,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 </ul>
                 <a href="http://wp.inoart.com/demo/autotrader/auto/make_model/audi/?watchlist=147"
                    class="watchlist-button button">Add to Watchlist</a>
-                <a href="http://wp.inoart.com/demo/autotrader/auto/used-audi-a8-hybrid-4dr-cpe/" class="button"
+                <a href="details.php" class="button"
                    target="_blank">View Details</a>
             </div>
         </div>
