@@ -113,40 +113,8 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 <!-- end - #content -->
 
 <!-- #sidebar -->
-<div id="sidebar" class="grid_4">
-<?php include("home/search.php") ?>
-
-
-    <div id="dox_wid_show_posts-2" class="widget dox_wid_show_posts">
-        <h3>Latest Ads</h3>
-
-        <ul class="clearfix">
-            <li><a href="" class="opac"><img src="assets/images/default-thumb5-60x40.jpg" class="attachment-tiny" alt="default-thumb" title="default-thumb" height="40" width="60"></a><h5><a
-                href="">Jaguar C-X75 2 dr Saloon 2012</a><span class="ad-price"> - 620000 USD</span></h5></li>
-            <li><a href="" class="opac"><img src="assets/images/default-thumb9-60x40.jpg" class="attachment-tiny" alt="default-thumb" title="default-thumb" height="40" width="60"></a>
-                <h5><a href="">New Toyota FT-85 2 dr Cpe Coupe</a><span class="ad-price"> - 195000 USD</span></h5></li>
-        </ul>
-    </div>
-    <div id="dox_wid_browse_autos-2" class="widget dox_wid_browse_autos">
-        <h3>Browse by Location</h3>
-        <ul class="auto_location clearfix">
-            <li><a href="http://wp.inoart.com/demo/autotrader/auto/location/alabama/">Alabama</a></li>
-            <li><a href="http://wp.inoart.com/demo/autotrader/auto/location/california/">California</a></li>
-            <li><a href="http://wp.inoart.com/demo/autotrader/auto/location/florida/">Florida</a></li>
-        </ul>
-
-    </div>
-    <div id="search-2" class="widget widget_search"><h3 class="title">Search Site</h3>
-
-        <form role="search" method="get" id="searchform" action="">
-            <div><label class="screen-reader-text" for="s">Search for:</label>
-                <input name="s" id="s" type="text">
-                <input id="searchsubmit" value="Search" type="submit">
-            </div>
-        </form>
-    </div>
-</div>
-<!-- end - #sidebar -->
+<?php include("home/rightbar.php") ?>
+<!-- #sidebar End -->
 
 <div class="clear"></div>
 </div>
@@ -188,28 +156,6 @@ $page_description = "Some Description goes here. Some Description goes here. Som
         $j("#userRegisterCheck").live('click',function(){
             $j("#user-register").show();
             $j("#user-login").hide();
-        });
-
-        function fill_dd_cities() {
-            $j("#searchAutosBox1797972015 #locationsub").empty();
-
-            var $location_id = $j("#searchAutosBox1797972015 #location").val();
-
-            $j.ajax({
-                type:'POST',
-                url:'http://wp.inoart.com/demo/autotrader/wp-admin/admin-ajax.php',
-                data:{ action:'dox_get_city', location_id:$location_id, sel_text:true },
-                success:function (response) {
-                    $j("#searchAutosBox1797972015 #locationsub").removeAttr("disabled");
-                    $j("#searchAutosBox1797972015 #locationsub").append(response);
-                }
-            });
-
-        }
-
-        /* if location changed */
-        $j("#searchAutosBox1797972015 #location").change(function () {
-            fill_dd_cities();
         });
     })
 
@@ -288,8 +234,8 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 frm.password.backgroundColor = "red";
                 return false;
             }
-            if(frm.password.value.length <= 5){
-                alert("Password must be more the five characters");
+            if(frm.password.value.length <= 6){
+                alert("Please must be more the five characters");
                 frm.password.focus();
                 frm.password.backgroundColor = "red";
                 return false;
@@ -309,8 +255,8 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 frm.reg_password.backgroundColor = "red";
                 return false;
             }
-            if(frm.reg_password.value.length <= 5){
-                alert("Password must be more the five characters");
+            if(frm.reg_password.value.length <= 6){
+                alert("Please must be more the five characters");
                 frm.reg_password.focus();
                 frm.reg_password.backgroundColor = "red";
                 return false;
