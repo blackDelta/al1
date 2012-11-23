@@ -48,10 +48,10 @@
 
             <div class="navigation">
                 <ul class="clearfix sf-js-enabled">
+                    <li><a href="./">Home</a></li>
                     <li><a href="post.php">Sell Your Car</a></li>
-                    <li><a href="#">Find Cars</a></li>
-                    <li><a href="#">New Cars</a></li>
-                    <li><a href="#">Used Cars</a>
+                    <li><a href="advance_search.php">Find Cars</a></li>
+                    <li><a href="search.php">New Cars</a></li>
                         <ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
                             <li><a href="#">Audi</a></li>
                             <li><a href="#">Alfa Romeo</a></li>
@@ -67,7 +67,7 @@
                         </ul>
                     </li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                 </ul>
             </div>
         </div>

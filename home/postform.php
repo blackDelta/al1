@@ -95,7 +95,7 @@
                         </select>                       
                     </div>
                     <script type="text/javascript">
-                        document.getElementById('condition').value = <?php echo strtolower(str_replace(" ","_",$_REQUEST['condition']));?>;
+                        document.getElementById('condition').value = '<?php echo $_REQUEST['condition'];?>';
                     </script>
                     <div class="form-input clearfix">
                         <label for="mileage">Mileage</label>
@@ -196,10 +196,10 @@
                     <div class="form-input clearfix">
                         <input name="auto_submit" id="auto_submit" value="true" type="hidden">
                         <input id="submitButton" name="submitButton" value="Submit" type="submit">
-                    </div>
 
-                </div>
-                <!-- end -.step-1 -->
+                </div>                    </div>
+
+        <!-- end -.step-1 -->
 
             </form>
 

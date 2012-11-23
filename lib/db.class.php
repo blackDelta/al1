@@ -25,8 +25,7 @@ class Database
         foreach ($data as $key => $val) {
             $query .= $tableName . "." . $key . " = '" . $val . "', ";
         }
-       $query .= "created_date=NOW(), modified_date=NOW()";
-	   
+        $query .= "created_date=NOW(), modified_date=NOW()";
         if ($this->execute_query($query)) {
             return true;
         } else {
