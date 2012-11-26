@@ -161,8 +161,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                 </ul>
                 <a href="http://wp.inoart.com/demo/autotrader/auto/make_model/audi/?watchlist=147"
                    class="watchlist-button button">Add to Watchlist</a>
-                <a href="details.php" class="button"
-                   target="_blank">View Details</a>
+                <a href="details.php" class="button" target="_blank">View Details</a>
             </div>
         </div>
 
