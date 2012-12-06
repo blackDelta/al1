@@ -43,3 +43,15 @@ function request($key)
     $val = stripslashes($val);
     return $val;
 }
+$config['general']['cities'] = array(
+    '1'=>'Lahore',
+    '2'=>'Faisalabad',
+    '3'=>'Multan',
+    '4'=>'Rawalpindi',
+    '5'=>'Gujranwala',
+    '6'=>'Sargodha',
+    '7'=>'sialkot',
+    '8'=>'Peshawar',
+    '9'=>'Islamabad',
+    '10'=>'Haiderabad',
+);

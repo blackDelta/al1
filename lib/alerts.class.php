@@ -2,19 +2,14 @@
 class Alerts
 {
     /**
-     * @var string contain the type of message
-     */
-    var $type = "";
-
-    /**
      * @var string contain the message
      */
     var $message = "";
-
+    var $type= "";
     /**
      * Constructor
      */
-    public function __constrict()
+    public function __construct()
     {
     }
 
@@ -57,5 +52,4 @@ class Alerts
         }
     }
 }
-
 ?>

@@ -89,59 +89,52 @@
 </div>
 <div class="clear"></div>
 <!-- end - #footer-bottom -->
-
 <script type="text/javascript">
     var $j = jQuery.noConflict();
 
     $j(document).ready(function () {
-
-
-        function fill_dd_model() {
-            $j("#homeSearch #make_modelsub").empty();
-
-            var $make_id = $j("#homeSearch #make_model").val();
-
-
+        function fill_model() {
+            $j(".make_modelsub").empty();
+            var $make_id = $j(".make_model").val();
             $j.ajax({
                 type:'POST',
-                url:'http://wp.inoart.com/demo/autotrader/wp-admin/admin-ajax.php',
-                data:{ action:'dox_get_model', make_id:$make_id, sel_text:true },
+                url:'lib/ajax_handler.php',
+                data:{
+                    action:'get_models',
+                    vendor_id:$make_id,
+                    sel_text:true
+                },
                 success:function (response) {
-                    $j("#homeSearch #make_modelsub").removeAttr("disabled");
-                    $j("#homeSearch #make_modelsub").append(response);
+                    $j(".make_modelsub").removeAttr("disabled");
+                    $j(".make_modelsub").append(response);
                 }
             });
-
+        }
+        function fill_model_search() {
+            $j(".s_make_modelsub").empty();
+            var $make_id = $j(".s_make_model").val();
+            $j.ajax({
+                type:'POST',
+                url:'lib/ajax_handler.php',
+                data:{
+                    action:'get_models',
+                    vendor_id:$make_id,
+                    sel_text:true
+                },
+                success:function (response) {
+                    $j(".s_make_modelsub").removeAttr("disabled");
+                    $j(".s_make_modelsub").append(response);
+                }
+            });
         }
 
         /* if make changed */
-        $j("#homeSearch #make_model").change(function () {
-            fill_dd_model();
+        $j(".make_model").change(function () {
+            fill_model();
         });
-
-
-        function fill_dd_cities() {
-            $j("#homeSearch #locationsub").empty();
-
-            var $location_id = $j("#homeSearch #location").val();
-
-            $j.ajax({
-                type:'POST',
-                url:'http://wp.inoart.com/demo/autotrader/wp-admin/admin-ajax.php',
-                data:{ action:'dox_get_city', location_id:$location_id, sel_text:true },
-                success:function (response) {
-                    $j("#homeSearch #locationsub").removeAttr("disabled");
-                    $j("#homeSearch #locationsub").append(response);
-                }
-            });
-
-        }
-
-        /* if location changed */
-        $j("#homeSearch #location").change(function () {
-            fill_dd_cities();
+        $j(".s_make_model").change(function () {
+            fill_model_search();
         });
-
-
-    })
-</script></body></html>
+    });
+</script>
+</body></html>

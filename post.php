@@ -5,15 +5,17 @@ include("lib/auth.class.php");
 include("lib/alerts.class.php");
 include("lib/advertisement.class.php");
 include("lib/user.class.php");
+include("lib/general.php");
 
 $alert = new Alerts();
 $user = new Users($db);
+$adv = new Advertisement($db);
+$gen = new General($db);
 $user_id = 0;
 
 if (isset($_REQUEST['action'])) {
     if ($_REQUEST['action'] == "add") {
         $data = array();
-        $adv = new Advertisement($db);
 
         $data['title'] = request('title');
         $data['vendor_id'] = request('vendor_id');
@@ -101,7 +103,9 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 <!-- #post-ad -->
 <div id="postAd" class="dox-template container">
 <div class="container_12 clearfix">
-<div class="grid_12"><h3 class="page-title"><?php echo $page_heading?></h3></div>
+<div class="grid_12">
+    <h3 class="page-title"><?php echo $page_heading;?></h3>
+</div>
 
 <!-- #content -->
 <div id="content" class="grid_8">
@@ -122,43 +126,6 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 <div class="clear"></div>
 <!-- end - #post-ad -->
 <script type="text/javascript">
-    var $j = jQuery.noConflict();
-
-    $j(document).ready(function () {
-        function fill_model() {
-            $j("#make_modelsub").empty();
-            var $make_id = $j("#make_model").val();
-            $j.ajax({
-                type:'POST',
-                url:'lib/ajax_handler.php',
-                data:{
-                    action:'get_models',
-                    vendor_id:$make_id,
-                    sel_text:true
-                },
-                success:function (response) {
-                    $j("#make_modelsub").removeAttr("disabled");
-                    $j("#make_modelsub").append(response);
-                }
-            });
-        }
-
-        /* if make changed */
-        $j("#make_model").change(function () {
-            fill_model();
-        });
-
-        $j("#userLoginCheck").live('click',function(){
-            $j("#user-login").show();
-            $j("#user-register").hide();
-        });
-
-        $j("#userRegisterCheck").live('click',function(){
-            $j("#user-register").show();
-            $j("#user-login").hide();
-        });
-    })
-
     function validate(){
         var frm = document.forms.adFrm;
         if(frm.vendor_id.value == ""){
@@ -282,5 +249,15 @@ $page_description = "Some Description goes here. Some Description goes here. Som
         }
         return true;
     }
+    $j = jQuery.noConflict();
+    $j("#userLoginCheck").live('click',function(){
+        $j("#user-login").show();
+        $j("#user-register").hide();
+    });
+
+    $j("#userRegisterCheck").live('click',function(){
+        $j("#user-register").show();
+        $j("#user-login").hide();
+    });
 </script>
 <?php include("home/footer.php"); ?>

@@ -53,8 +53,9 @@ class Database
         }
     }
 
-    public function get_row($result)
-{
+    public function get_row($query)
+    {
+        $result = $this->execute_query($query,true);
         if ($result) {
             return mysql_fetch_array($result);
         } else {
@@ -97,7 +98,7 @@ class Database
 
     public function create_slug($string)
     {
-        $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+        $slug = preg_replace('/[^A-Za-z0-9-]+\s\t\n\r/', '-', $string);
         return $slug;
     }
 

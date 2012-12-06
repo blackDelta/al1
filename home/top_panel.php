@@ -7,6 +7,7 @@
             <p></p>
         </div>
         <-- end .panel-alert -->
+
         <!-- IF USER IS LOGGED -->
         <div class="inner">
             <div class="grid grid1">
@@ -26,7 +27,10 @@
                     </div>
                 </div>
             </div>
-
+        <?php
+            if(!$user_id)
+            {
+        ?>
             <!-- .register -->
             <div class="grid grid2 register">
                 <h4 class="panel-title">Register</h4>
@@ -67,11 +71,11 @@
             <div class="grid grid3 user-login">
                 <h4 class="panel-title">User Login</h4>
 
-                <form name="loginform" id="loginform" action="login.php" method="post">
+                <form name="loginform" id="loginform" action="" method="post">
 
                     <p class="login-username">
                         <label for="user_login">Username</label>
-                        <input name="uname" id="user_login" class="input" size="20" tabindex="10" type="text">
+                        <input name="log" id="user_login" class="input" size="20" tabindex="10" type="text">
                     </p>
 
                     <p class="login-password">
@@ -79,23 +83,26 @@
                         <input name="pwd" id="user_pass" class="input" value="" size="20" tabindex="20" type="password">
                     </p>
 
-                    <p class="login-remember"><label><input name="rememberme" id="rememberme" value="forever" tabindex="90" type="checkbox"> Remember Me</label></p>
+                    <p class="login-remember"><label><input name="rememberme" id="rememberme" value="forever"
+                                                            tabindex="90" type="checkbox"> Remember Me</label></p>
 
                     <p class="login-submit">
-                        <input name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="100" type="submit">
+                        <input name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="100"
+                               type="submit">
                         <input name="redirect_to" value="" type="hidden">
                     </p>
 
                 </form>
             </div>
             <!-- end- .user-login -->
+            <?php } ?>
         </div>
         <!-- END - USER IS LOGGED -->
 
     </div>
 
     <div class="inner">
-        <div class="panel-tab"><h4>LOGIN OR REGISTER</h4></div>
+        <div class="panel-tab"><h4><?php echo $user_id ? "USER PROFILE" : "LOGIN / REGISTER" ?></h4></div>
     </div>
 
     <div class="clear"></div>

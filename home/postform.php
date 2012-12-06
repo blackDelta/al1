@@ -22,25 +22,20 @@
                 <div class="step step-1">
                     <div class="form-input clearfix">
                         <label for="make_model">Make</label>
-                        <select name="vendor_id" id="make_model" class="required-field">
+                        <select name="vendor_id" id="make_model" class="required-field make_model">
                             <option selected="selected">Select Make</option>
                             <?php
-                            $query = "select * from vender order by name";
-							$vender_res = $db->execute_query($query,true);
-							while($vender_row = $db->fetch($vender_res))
-							{
-							?>
-                            <option value="<?php echo $vender_row['id']?>"><?php echo ucwords($vender_row['name']); ?></option>
-                            <?php } ?>
+                                $adv->render_make_options();
+                            ?>
                         </select>
                         <script type="text/javascript">
-                            document.getElementById('make_model').value = <?php echo $_REQUEST['vendor_id']?>;
+                            document.getElementById('make_model').value = '<?php echo $_REQUEST['vendor_id']?>';
                         </script>
                     </div>
 
                     <div class="form-input clearfix">
                         <label for="make_modelsub">Model</label>
-                        <select name="model_id" id="make_modelsub" disabled="disabled" class="required-field"></select>
+                        <select name="model_id" id="make_modelsub" disabled="disabled" class="required-field make_modelsub"></select>
                         <span style="padding:10px; line-height: 30px">Please select Make to get its Models</span>
                     </div>
                     <div class="form-input clearfix">
@@ -62,26 +57,20 @@
                             <?php } ?>
                         </select>
                         <script type="text/javascript">
-                            document.getElementById('regyear').value = <?php echo $_REQUEST['year']?>;
+                            document.getElementById('regyear').value = '<?php echo $_REQUEST['year']?>';
                         </script>
                     </div>
 
                     <div class="form-input clearfix">
                         <label for="locationsub">Registered City</label>
                         <select name="reg_city" id="locationsub" class="required-field">
-                        	<option value="Lahore">Lahore</option>
-                            <option value="Karachi">Karachi</option>
-                            <option value="Islamabad">Islamabad</option>
-                            <option value="Rawalpindi">Rawalpindi</option>
-                            <option value="Multan">Multan</option>
-                            <option value="Faisalabad">Faisalabad</option>
-                            <option value="Sargodha">Sargodha</option>
-                            <option value="Haiderabad">Haiderabad</option>
-                            <option value="Pishawar">Peshawar</option>
+                        	<?php
+                            $gen->render_cities();
+                            ?>
                         </select>
                     </div>
                     <script type="text/javascript">
-                        document.getElementById('locationsub').value = <?php echo $_REQUEST['reg_city']?>;
+                        document.getElementById('locationsub').value = '<?php echo $_REQUEST['reg_city']?>';
                     </script>
                     <div class="form-input clearfix">
                         <label for="condition">Condition</label>

@@ -5,13 +5,22 @@ include("lib/auth.class.php");
 include("lib/alerts.class.php");
 include("lib/advertisement.class.php");
 include("lib/user.class.php");
+include("lib/general.php");
 
 $alert = new Alerts();
-$advert = new Advertisement($db);
-$user_id = 0;
-if ($_REQUEST['action'] == 'serach') {
+$user = new Users($db);
+$adv = new Advertisement($db);
+$gen = new General($db);
 
+$adv_id = null ;
+if(isset($_REQUEST['car']) and $_REQUEST['car'] > 0)
+{
+    $adv_id =(int) request('car');
+}else{
+    die("Insufficient parameters sent. <a href=\"".$_SERVER['HTTP_REFERER']."\">Go Back</a>");
 }
+$user_id = 0;
+
 $page_title = "Result for Bugatti virion";
 $page_heading = "Result for Bugatti virion";
 $page_subheading = "Post your car for sale";

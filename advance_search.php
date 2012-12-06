@@ -123,13 +123,10 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     </select>
 </div>
 
-
 <div class="form-input form-input-33 clearfix">
     <label for="locationsub">City</label>
-    <select name="locationsub[]" id="locationsub" multiple="multiple"
-            disabled="disabled"></select>
+    <select name="locationsub[]" id="locationsub" multiple="multiple" disabled="disabled"></select>
 </div>
-
 
 <div class="form-input form-input-33 clearfix">
     <label for="adyear">Year</label>
@@ -214,49 +211,37 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 
     <div class="form-input form-input-50 clearfix">
         <label for="doors">Doors</label>
-        <input name="doors-min" id="doors-min" size="9" maxlength="1"
-               type="text">
+        <input name="doors-min" id="doors-min" size="9" maxlength="1" type="text">
         <span class="to">to</span>
-        <input name="doors-max" id="doors-max" size="9" maxlength="1"
-               type="text">
+        <input name="doors-max" id="doors-max" size="9" maxlength="1" type="text">
     </div>
 
     <div class="form-input form-input-50 clearfix">
         <label for="mileage">Mileage</label>
-        <input name="mileage-min" id="mileage-min" size="9"
-               maxlength="6" type="text">
+        <input name="mileage-min" id="mileage-min" size="9" maxlength="6" type="text">
 
         <span class="to">to</span>
-        <input name="mileage-max" id="mileage-max" size="9"
-               maxlength="6" type="text">
+        <input name="mileage-max" id="mileage-max" size="9" maxlength="6" type="text">
     </div>
-
 
     <div class="form-input form-input-50 clearfix">
         <label for="price">Price</label>
         <input name="price-min" id="price-min" size="9" type="text">
         <span class="to">to</span>
         <input name="price-max" id="price-max" size="9" type="text">
-
     </div>
 </div>
 
-
 <div class="form-input clearfix">
     <label for="keyword">Keyword</label>
-    <input name="keyword" id="keyword" size="60" maxlength="50"
-           type="text">
-
+    <input name="keyword" id="keyword" size="60" maxlength="50" type="text">
     <div class="clear"></div>
 </div>
 
 <div style="float:left;width:100%">
-
     <div class="form-input clearfix">
-        <input name="auto_search" id="auto_search" value="true"
-               type="hidden">
-        <input name="searchButton" id="searchButton" class="button"
-               value="Search" type="submit">
+        <input name="auto_search" id="auto_search" value="true"  type="hidden">
+        <input name="searchButton" id="searchButton" class="button" value="Search" type="submit">
     </div>
 </div>
 

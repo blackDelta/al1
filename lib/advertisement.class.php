@@ -33,7 +33,6 @@ class Advertisement
         if (is_array($data) and count($data) > 0) {
             if ($this->db->add_to_table($this->tables['ad'], $data))
             {
-                //die("here");
                 $inserted_id = $this->db->get_inserted_id();
                 $this->upload_ad_images($inserted_id);
                 return true;
@@ -63,7 +62,6 @@ class Advertisement
                 $new_name = time()."_".$ad_id;
                 $dest = "advertisements/";
                 $this->upload_image($dest,$_FILES['attachment']['tmp_name'][$i],$_FILES['attachment']['name'][$i],$ad_id);
-
             }
         }
     }
@@ -80,8 +78,6 @@ class Advertisement
                 if($this->insert_image($destination,$ad_id))
                 {
                     return true;
-                }else{
-                    die("problem");
                 }
             }
             else
@@ -96,34 +92,44 @@ class Advertisement
             return false;
         }
     }
-    /*
-    function create_thumbnail($source, $destination, $width, $height)
+
+    function render_make_options()
     {
-        $img_info = pathinfo($source);
-        if (strtolower($img_info['extension']) == 'jpg' || strtolower($img_info['extension']) == 'jpeg')
-            $source_image = imagecreatefromjpeg($source);
-        else if (strtolower($img_info['extension']) == 'png')
-            $source_image = imagecreatefrompng($source);
-        else if (strtolower($img_info['extension']) == 'gif')
-            $source_image = imagecreatefromgif($source);
-        else {
-            $this->error_msg = "Invalid File Format. Only jpg,png,gif images are allowed";
+
+        $query = "select * from vender order by name";
+        $vender_res = $this->db->execute_query($query, true);
+	    while ($vender_row = $this->db->fetch($vender_res))
+        {
+            ?>
+            <option value="<?php echo $vender_row['id']?>"><?php echo ucwords($vender_row['name']); ?></option>
+            <?php
+        }
+    }
+
+    public function get_vendor($id)
+    {
+        if($id != "" &&  $id > 0)
+        {
+            $query = "select name from vender where id ='".$id."'";
+            $row = $this->db->get_row($query);
+            return $row['name'];
+        }
+        else
+        {
             return false;
         }
-
-        $src_width = imagesx($source_image);
-        $src_height = imagesy($source_image);
-
-        $virtual_image = imagecreatetruecolor($this->thumb_width, $this->thumb_height);
-
-        imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $width, $height, $src_width, $src_height);
-
-        if (strtolower($img_info['extension']) == 'jpg' || strtolower($img_info['extension']) == 'jpeg')
-            imagejpeg($virtual_image, $destination . $thumb_name, 90);
-        else if (strtolower($img_info['extension']) == 'png')
-            imagepng($virtual_image, $destination . $thumb_name);
-        else if (strtolower($img_info['extension']) == 'gif')
-            imagegif($virtual_image, $destination . $thumb_name);
-        return true;
-    }*/
+    }
+    public function get_model($id)
+    {
+        if($id != "" &&  $id > 0)
+        {
+            $query = "select name from model where id ='".$id."'";
+            $row = $this->db->get_row($query);
+            return $row['name'];
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

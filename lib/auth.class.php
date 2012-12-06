@@ -38,7 +38,7 @@
             }
         }
 		function create_session($userid){
-			$_SESSION['uid']= $userid;
+            $_SESSION['uid']= $userid;
 		}
 		function update_status($status){
 			$uid=$this->get_id();
@@ -53,7 +53,13 @@
 			return $row['status'];
 		}
 		function get_id(){
-			return $_SESSION['uid'];
+            if(isset($_SESSION['uid']) and $_SESSION['uid'] > 0)
+            {
+                return $_SESSION['uid'];
+            }
+            else{
+                return false;
+            }
 		}
 		function get_type($id){
 			$query="select * from members where id='$id'";
