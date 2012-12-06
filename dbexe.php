@@ -7,7 +7,7 @@ if(isset($_REQUEST['action']) and $_REQUEST['action']=='run'){
 	if($db->execute_query($query)){
 		echo '<p style="color:green">Query executed successfully</p>';
 	}else{
-		echo '<p style="color:red">error in query</p>';
+		echo '<p style="color:red">error in query '.mysql_error().' </p>';
 	}
 }
 ?>

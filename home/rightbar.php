@@ -33,7 +33,7 @@
 
                 <div class="form-input clearfix">
                     <label for="price-min">Price</label>
-                    <input name="s_price_min" id="price-min" size="9" type="text">
+                    <input name="s_price_min" id="price-min" size="8" type="text">
                     <span class="to">to</span>
                     <input name="s_price_max" id="price-max" size="9" type="text">
                 </div>
