@@ -4,10 +4,15 @@ include("lib/db.class.php");
 include("lib/auth.class.php");
 include("lib/alerts.class.php");
 include("lib/advertisement.class.php");
+include("lib/user.class.php");
+include("lib/general.php");
 
 $alert = new Alerts();
+$user = new Users($db);
 $adv = new Advertisement($db);
-$auth= new Auth($db);
+$gen = new General($db);
+$auth = new Auth($db);
+
 $user_id = $auth->get_id();
 
 $page_title = "Home - Your car market";
@@ -120,37 +125,44 @@ include("home/slider.php");
                 <h3>Search Cars</h3>
 
                 <div class="search-autos-box">
-                    <form id="" action="" method="post">
+                    <form id="" action="search.php" method="post">
                         <div class="form-input clearfix">
                             <label for="make_model">Make</label>
-                            <select name="make_model" class="make_model" id="make_model">
-                                <option value="" selected="selected">Select Make</option>
-                                <?php $adv->render_make_options(); ?>
+                            <select name="s_make_model" class="s_make_model" id="make_model">
+                                <option value="">Any</option>
+                                <?php
+                                $adv->render_make_options();
+                                ?>
                             </select>
                         </div>
 
                         <div class="form-input clearfix">
                             <label for="make_modelsub">Model</label>
-                            <select name="make_modelsub" class="make_modelsub" id="make_modelsub" disabled="disabled"></select>
+                            <select name="s_make_modelsub" id="make_modelsub" class="s_make_modelsub" disabled="disabled">
+                            </select>
                         </div>
 
                         <div class="form-input clearfix">
-                            <label for="locationsub">City</label>
-                            <select name="locationsub" id="locationsub" disabled="disabled"></select>
+                            <label for="sLocationsub">City</label>
+                            <select name="s_city" id="sLocationsub">
+                                <option value="">Any</option>
+                                <?php
+                                $gen->render_cities();
+                                ?>
+                            </select>
                         </div>
-
 
                         <div class="form-input clearfix">
                             <label for="price-min">Price</label>
-                            <input name="price-min" id="price-min" size="9" type="text">
+                            <input name="s_price_min" id="price-min" size="9" type="text">
                             <span class="to">to</span>
-                            <input name="price-max" id="price-max" size="9" type="text">
+                            <input name="s_price_max" id="price-max" size="9" type="text">
                         </div>
 
                         <div class="form-input clearfix">
-                            <input name="auto_search" id="auto_search" value="true" type="hidden">
+                            <input name="action" id="action" value="search" type="hidden">
                             <input id="searchAutosBoxButton" name="searchAutosBoxButton" value="Search" type="submit">
-                            <a href="search.php" class="advancedSearch">Advanced Search</a>
+                            <a href="advance_search.php" class="advancedSearch">Advanced Search</a>
                         </div>
 
                     </form>

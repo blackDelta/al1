@@ -25,7 +25,7 @@ class Database
         foreach ($data as $key => $val) {
             $query .= $tableName . "." . $key . " = '" . $val . "', ";
         }
-        $query .= "created_date=NOW(), modified_date=NOW()";
+       $query .= "created_date=NOW(), modified_date=NOW()";
         if ($this->execute_query($query)) {
             return true;
         } else {
@@ -36,7 +36,7 @@ class Database
 
     public function execute_query($query, $return_resource = FALSE)
     {
-        if (trim($query) != "") {
+        if ($query != "") {
             if ($return_resource === FALSE) {
                 if (mysql_query($query)) {
                     return true;
@@ -67,7 +67,7 @@ class Database
     public function fetch($result)
     {        
 		if ($result) {
-			return mysql_fetch_array($result);
+			return mysql_fetch_assoc($result);
 		} else {
 			$this->message = "Query is empty";
 			return false;
@@ -114,4 +114,3 @@ $db = new Database(
     $config['db']['dbName'],
     $config['db']['user'],
     $config['db']['password']);
-?>

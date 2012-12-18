@@ -29,7 +29,7 @@
 		function login($user,$pass,$table){
             $query = "select id from ".$table." where username='".$user."' and password = '".$pass."'";
             $result = $this->db->execute_query($query,true);
-            $row = $this->db->get_row($result);
+            $row = $this->db->fetch($result);
             if($row['id'] > 0){
                 $this->create_session($row['id']);
                 return true;
@@ -128,4 +128,3 @@
 		}
 
 	}
-?>

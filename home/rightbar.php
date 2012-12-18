@@ -33,7 +33,7 @@
 
                 <div class="form-input clearfix">
                     <label for="price-min">Price</label>
-                    <input name="s_price_min" id="price-min" size="8" type="text">
+                    <input name="s_price_min" id="price-min" size="9" type="text">
                     <span class="to">to</span>
                     <input name="s_price_max" id="price-max" size="9" type="text">
                 </div>
@@ -46,64 +46,7 @@
 
             </form>
         </div>
-
     </div>
-    <script type="text/javascript">
-
-        var $j = jQuery.noConflict();
-
-        $j(document).ready(function () {
-
-
-            function fill_dd_model() {
-                $j("#searchAutosBox82139136828 #make_modelsub").empty();
-
-                var $make_id = $j("#searchAutosBox82139136828 #make_model").val();
-
-
-                $j.ajax({
-                    type:'POST',
-                    url:'http://wp.inoart.com/demo/autotrader/wp-admin/admin-ajax.php',
-                    data:{ action:'dox_get_model', make_id:$make_id, sel_text:true },
-                    success:function (response) {
-                        $j("#searchAutosBox82139136828 #make_modelsub").removeAttr("disabled");
-                        $j("#searchAutosBox82139136828 #make_modelsub").append(response);
-                    }
-                });
-
-            }
-
-            /* if make changed */
-            $j("#searchAutosBox82139136828 #make_model").change(function () {
-                fill_dd_model();
-            });
-
-
-            function fill_dd_cities() {
-                $j("#searchAutosBox82139136828 #locationsub").empty();
-
-                var $location_id = $j("#searchAutosBox82139136828 #location").val();
-
-                $j.ajax({
-                    type:'POST',
-                    url:'http://wp.inoart.com/demo/autotrader/wp-admin/admin-ajax.php',
-                    data:{ action:'dox_get_city', location_id:$location_id, sel_text:true },
-                    success:function (response) {
-                        $j("#searchAutosBox82139136828 #locationsub").removeAttr("disabled");
-                        $j("#searchAutosBox82139136828 #locationsub").append(response);
-                    }
-                });
-
-            }
-
-            /* if location changed */
-            $j("#searchAutosBox82139136828 #location").change(function () {
-                fill_dd_cities();
-            });
-
-
-        })
-    </script>
 
     <div id="dox_wid_show_posts-2" class="widget dox_wid_show_posts">
         <h3>Latest Ads</h3>

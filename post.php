@@ -22,6 +22,7 @@ if (isset($_REQUEST['action'])) {
         $data['model_id'] = request('model_id');
         $data['type'] = request('type');
         $data['year'] = request('year');
+        $data['price'] = str_replace(",","",request('price'));
         $data['mileage'] = request('mileage');
         $data['reg_city'] = request('reg_city');
         $data['vin_no'] = request('vin_no');
@@ -36,6 +37,7 @@ if (isset($_REQUEST['action'])) {
             $auth = new Auth($db);
             $auth->login($user_name, $password, "user");
             $user_id = $auth->get_id();
+
             if($user_id > 0)
             {
                 $data['user_id'] = $user_id;
@@ -97,7 +99,7 @@ if($_REQUEST['action'] == 'success'){
 $page_title = "Sell Your Car";
 $page_heading = "Sell Your Car";
 $page_subheading = "Post your car for sale";
-$page_description = "Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. ";
+$page_description = "Some Description goes here. Some Description goes here. Some Description goes here. Some Description goes here. ";
 ?>
 <?php include("home/header.php"); ?>
 <!-- #post-ad -->

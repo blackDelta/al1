@@ -8,30 +8,27 @@ include("lib/user.class.php");
 include("lib/general.php");
 
 $alert = new Alerts();
+$user = new Users($db);
 $adv = new Advertisement($db);
 $gen = new General($db);
 
 $user_id = 0;
+$car_count = 0;
 $query = "SELECT
-  `advertisement`.`id`,
-  `advertisement`.`reg_city`,
-  `advertisement`.`title`,
-  `model`.`name`              AS model,
-  `vender`.`name`             AS vendor,
-  `advertisement`.`price`,
-  `advertisement`.`year`,
-  `advertisement`.`mileage`,
-  `advertisement`.`title`,
-  `advertisement`.`reg_city`,
-  `ad_images`.`image` AS image
-FROM `gpk_db`.`ad_images`
-  INNER JOIN `gpk_db`.`advertisement`
-    ON (`ad_images`.`ad_id` = `advertisement`.`id`)
-  INNER JOIN `gpk_db`.`vender`
-    ON (`advertisement`.`vendor_id` = `vender`.`id`)
+  `advertisement`.*,
+  `model`.`name`         AS `model_name`,
+  `vender`.`name`        AS `vender_name`,
+  `ad_images`.`image_id`,
+  `images`.`name_path`
+FROM `gpk_db`.`advertisement`
+  INNER JOIN `gpk_db`.`ad_images`
+    ON (`advertisement`.`id` = `ad_images`.`ad_id`)
+  INNER JOIN `gpk_db`.`images`
+    ON (`ad_images`.`image_id` = `images`.`id`)
   INNER JOIN `gpk_db`.`model`
     ON (`advertisement`.`model_id` = `model`.`id`)
-      AND (`model`.`vender_id` = `vender`.`id`)";
+  INNER JOIN `gpk_db`.`vender`
+    ON (`model`.`vender_id` = `vender`.`id`);";
 
 if($_REQUEST['action'] == 'search'){
     $make = request('s_make_model');
@@ -60,13 +57,13 @@ if($_REQUEST['action'] == 'search'){
     {
        $where .= " AND `advertisement`.`price` <= ".$price_max." ";
     }
-
-    $search_result = $db->execute_query($query.$where,true);
+    $final_query = $query.$where;
+    $search_result = $db->execute_query($final_query,true);
+    $car_count = $db->num_rows($final_query.$where);
 }else{
 
 }
 
-$page_title = "Result for Bugatti virion";
 if(isset($make) and $make != "")
 {
     $make_name = $adv->get_vendor($make);
@@ -74,6 +71,7 @@ if(isset($make) and $make != "")
     {
         $model_name = $adv->get_model($model);
         $page_heading = "Result for ".$make_name." ".$model_name;
+        $page_title = "Result for ".$make_name." ".$model_name;
     }else{
         $page_heading = "Result for ".$make_name;
     }
@@ -96,7 +94,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     /*
      * start of loop
     */
-    if(is_resource($search_result)){
+    if($car_count > 0){
         while($car_row = $db->fetch($search_result)){
             ?>
     <!-- .post -->
@@ -129,9 +127,9 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     </div>
     <?php
         }
-    } else {
-        echo "<p class='alert-warning'>Result not found</p>";
-     }
+    } else {?>
+        <p class='alert-warning'>Result not found</p>
+    <?php }
     /*
      * end of loop
      */
@@ -140,6 +138,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 
     <!-- .listing-paging -->
     <div class="listing-paging">
+
     </div>
     <!-- end - .listing-paging -->
 

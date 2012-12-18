@@ -5,9 +5,13 @@ include("lib/auth.class.php");
 include("lib/alerts.class.php");
 include("lib/advertisement.class.php");
 include("lib/user.class.php");
+include("lib/general.php");
 
 $alert = new Alerts();
-$advert = new Advertisement($db);
+$user = new Users($db);
+$adv = new Advertisement($db);
+$gen = new General($db);
+
 $user_id = 0;
 if ($_REQUEST['action'] == 'serach') {
 

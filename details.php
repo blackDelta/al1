@@ -12,12 +12,31 @@ $user = new Users($db);
 $adv = new Advertisement($db);
 $gen = new General($db);
 
-$adv_id = null ;
-if(isset($_REQUEST['car']) and $_REQUEST['car'] > 0)
-{
-    $adv_id =(int) request('car');
-}else{
-    die("Insufficient parameters sent. <a href=\"".$_SERVER['HTTP_REFERER']."\">Go Back</a>");
+$adv_id = null;
+$car_result = false;
+if (isset($_REQUEST['car']) and $_REQUEST['car'] > 0) {
+    $adv_id = (int)request('car');
+
+    $query = "SELECT
+  `advertisement`.*,
+  `vender`.`name`   AS `vender_name`,
+  `model`.`name`    AS `model_name`,
+`user`.`name` AS user_name,
+`user`.`location` AS user_location,
+`user`.`phone` AS user_phone
+
+FROM `gpk_db`.`advertisement`,
+  `gpk_db`.`vender`,
+  `gpk_db`.`model`,
+  `gpk_db`.`user`
+WHERE `advertisement`.`vendor_id` = `vender`.`id`
+    AND `advertisement`.`model_id` = `model`.`id`
+    AND `advertisement`.`user_id` = `user`.`id`
+    AND `advertisement`.`id` ='" . $adv_id . "'";
+    $car_row = $db->fetch($db->execute_query($query, true));
+    $img_row = $db->fetch($db->execute_query("select * from ad_images where ad_id = '".$adv_id."'", true));
+} else {
+    die("Insufficient parameters sent. <a href=\"" . $_SERVER['HTTP_REFERER'] . "\">Go Back</a>");
 }
 $user_id = 0;
 
@@ -32,19 +51,19 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 <div class="container_12 clearfix">
 <div class="grid_12"><h3 class="page-title">Ad Details</h3></div>
 
-<!-- .single-auto-alert -->
+<!-- .single-auto-alert
 <div class="single-auto-alert alert" style="display:none">
     <p></p>
 </div>
 <!-- end .single-auto-alert -->
-
+<?php $alert->get_message(); ?>
 <!-- #content -->
 <div id="content" class="grid_8">
 
 <!-- .post -->
 <div class="post-114 auto type-auto status-publish hentry custom-post-type clearfix" id="post-114">
 
-<h3 class="title">New Mercedes F800 4dr Cpe 2011</h3>
+<h3 class="title"><?php echo $car_row['title']; ?></h3>
 
 <!-- .auto-photos -->
 <div class="auto-photos grid_8 alpha">
@@ -53,51 +72,23 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     <!-- end - .video-embed -->
 
     <div class="post-image grid_5 alpha">
-        <a href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/default-thumb7-620x429.jpg"
-           rel="prettyPhoto[gallery]" class="image-zoom single-thumb-zoom"><img
-                src="assets/images/default-thumb7-380x253.jpg"><span
-                class="zoom-icon"></span></a>
-
+        <a href="" rel="prettyPhoto[gallery]" class="image-zoom single-thumb-zoom">
+            <img src="assets/images/default-thumb7-380x253.jpg">
+            <span class="zoom-icon"></span>
+        </a>
         <div class="clear"></div>
     </div>
 
-
     <div class="post-thumbs grid_3 omega">
         <div class="thumb-container tj_container clearfix" style="visibility: visible;">
-
-
             <div class="tj_wrapper">
                 <ul class="tj_gallery" style="position: relative;">
-                    <li style="position: absolute; left: 0px; top: 0px;" class="tj_row_1"><a
-                            href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/4405316335_bc6317b551_z-620x411.jpg"
-                            rel="prettyPhoto[gallery]" class="image-zoom slide-thumb-zoom"><img
-                            src="assets/images/4405316335_bc6317b551_z-90x60.jpg"><span
-                            class="zoom-icon"></span></a></li>
-                    <li style="position: absolute; left: 110px; top: 0px;" class="tj_row_1"><a
-                            href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/4405318721_56876f7453_z-620x384.jpg"
-                            rel="prettyPhoto[gallery]" class="image-zoom slide-thumb-zoom"><img
-                            src="assets/images/4405318721_56876f7453_z-90x60.jpg"><span
-                            class="zoom-icon"></span></a></li>
-                    <li style="position: absolute; left: 0px; top: 70px;" class="tj_row_2"><a
-                            href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/4405319779_a4ac411547_z-620x407.jpg"
-                            rel="prettyPhoto[gallery]" class="image-zoom slide-thumb-zoom"><img
-                            src="assets/images/4405319779_a4ac411547_z-90x60.jpg"><span
-                            class="zoom-icon"></span></a></li>
-                    <li style="position: absolute; left: 110px; top: 70px;" class="tj_row_2"><a
-                            href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/4405327671_1e9d6fb8cd_z-620x401.jpg"
-                            rel="prettyPhoto[gallery]" class="image-zoom slide-thumb-zoom"><img
-                            src="assets/images/4405327671_1e9d6fb8cd_z-90x60.jpg"><span
-                            class="zoom-icon"></span></a></li>
-                    <li style="position: absolute; left: 0px; top: 140px;" class="tj_row_3"><a
-                            href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/4406093308_2512e8e321_z-620x414.jpg"
-                            rel="prettyPhoto[gallery]" class="image-zoom slide-thumb-zoom"><img
-                            src="assets/images/4406093308_2512e8e321_z-90x60.jpg"><span
-                            class="zoom-icon"></span></a></li>
-                    <li style="position: absolute; left: 110px; top: 140px;" class="tj_row_3"><a
-                            href="http://wp.inoart.com/demo/autotrader/wp-content/uploads/default-thumb7-620x429.jpg"
-                            rel="prettyPhoto[gallery]" class="image-zoom slide-thumb-zoom"><img
-                            src="assets/images/default-thumb7-90x60.jpg"><span
-                            class="zoom-icon"></span></a></li>
+                    <li style="position: absolute; left: 0px; top: 0px;" class="tj_row_1">
+                        <a href="" rel="" class="image-zoom slide-thumb-zoom">
+                        <img width="90px" height="60px" src="assets/images/4405316335_bc6317b551_z-90x60.jpg">
+                            <span class="zoom-icon"></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -111,19 +102,8 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     <!-- .entry-content -->
     <div class="entry-content">
         <h4 class="section-title section-line">Description</h4>
-        <a href="http://wp.inoart.com/demo/autotrader/auto/new-mercedes-f800-4dr-cpe-2011/?watchlist=114"
-           class="watchlist-button-single button">Add to Watchlist</a>
-
-        <p>Donec ut est in lectus consequat consequat. Etiam eget dui. Aliquam erat volutpat. Sed at lorem in
-            nunc porta tristique. Proin nec augue. Quisque aliquam tempor magna.</p>
-
-        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc ac
-            magna. Maecenas odio dolor, vulputate vel, auctor ac, accumsan id, felis. Pellentesque cursus
-            sagittis felis.</p>
-
-        <p>Pellentesque porttitor, velit lacinia egestas auctor, diam eros tempus arcu, nec vulputate augue
-            magna vel risus. Cras non magna vel ante adipiscing rhoncus. Vivamus a mi. Morbi neque. Aliquam erat
-            volutpat. Integer ultrices lobortis eros</p>
+        <a href="" class="watchlist-button-single button">Add to Watchlist</a>
+        <p><?php echo $car_row['description'];?></p>
     </div>
     <!-- end - .entry-content -->
 
@@ -136,12 +116,11 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     <!-- .seller-info -->
     <div class="seller-info">
         <h4 class="section-title section-line">Seller Info</h4>
-
         <ul>
-            <li><span>Seller Name</span> : John Doe</li>
-            <li><span>Phone Number</span> : 1-234-567890</li>
-            <li><span>Mobile Number</span> : 1-234-567890</li>
-            <li><span>Ad Date</span> : May 9, 2012</li>
+            <li><span>Seller Name</span> : <?php echo $car_row['user_name']; ?></li>
+            <li><span>Phone Number</span> :<?php echo $car_row['user_phone']; ?></li>
+            <li><span>Location</span> : <?php echo $car_row['user_location']; ?></li>
+            <li><span>Ad Date</span> : <?php echo date("M d, Y H:i:s",strtotime($car_row['created_date'])); ?></li>
         </ul>
         <div class="clear"></div>
     </div>
@@ -156,14 +135,11 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 
             <!-- .step-form-wrap -->
             <div class="step-form-wrap">
-                <form id="contactForm"
-                      action="assets/images/New Mercedes F800 4dr Cpe 2011   Autotrader Wordpress Theme.htm"
-                      method="post">
+                <form id="contactForm"   action="" method="post">
 
                     <div class="form-input clearfix">
                         <label for="sellername">Seller Name</label>
-                        <input type="text" name="sellername" id="sellername" size="25" disabled="true"
-                               value="John Doe">
+                        <input type="text" name="sellername" id="sellername" size="25" disabled="true" value="<?php echo $car_row['user_name']; ?>">
                     </div>
 
                     <div class="form-input clearfix">
@@ -179,86 +155,6 @@ $page_description = "Some Description goes here. Some Description goes here. Som
                     <div class="form-input clearfix">
                         <label for="message">Your Message</label>
                         <textarea name="message" id="message" cols="50" rows="5"></textarea>
-                    </div>
-
-                    <div class="form-input clearfix">
-                        <div id="recaptcha_container"
-                             class=" recaptcha_nothad_incorrect_sol recaptcha_isnot_showing_audio" style="">
-                            <div id="recaptcha_area">
-                                <table id="recaptcha_table" class="recaptchatable recaptcha_theme_white">
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="6" class="recaptcha_r1_c1"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="recaptcha_r2_c1"></td>
-                                        <td colspan="4" class="recaptcha_image_cell">
-                                            <div id="recaptcha_image" style="width: 300px; height: 57px;"><img
-                                                    style="display:block;" alt="reCAPTCHA challenge image"
-                                                    height="57" width="300"
-                                                    src="assets/images/image">
-                                            </div>
-                                        </td>
-                                        <td class="recaptcha_r2_c2"></td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="6" class="recaptcha_r3_c1"></td>
-                                        <td colspan="4" class="recaptcha_r3_c2"></td>
-                                        <td rowspan="6" class="recaptcha_r3_c3"></td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="3" class="recaptcha_r4_c1" height="49">
-                                            <div class="recaptcha_input_area"><label
-                                                    for="recaptcha_response_field"
-                                                    class="recaptcha_input_area_text"><span
-                                                    id="recaptcha_instructions_image"
-                                                    class="recaptcha_only_if_image recaptcha_only_if_no_incorrect_sol">Type the two words:</span><span
-                                                    id="recaptcha_instructions_audio"
-                                                    class="recaptcha_only_if_no_incorrect_sol recaptcha_only_if_audio">Type what you hear:</span><span
-                                                    id="recaptcha_instructions_error"
-                                                    class="recaptcha_only_if_incorrect_sol">Incorrect. Try again.</span></label><br>
-                                                        <span id="recaptcha_challenge_field_holder"
-                                                              style="display: none;"><input type="hidden"
-                                                                                            name="recaptcha_challenge_field"
-                                                                                            id="recaptcha_challenge_field"
-                                                                                            value="03AHJ_Vut9NJ5inIMPKPItpZIfe7mxPMNylwi3Se5pLncs1o2m4sc0dxRL9ahXTGN0LqNI_0SJGZ4WuB3ZGvYA9pXI-8VOn1G2037ALx6zJbrzN7jjv5VcDSFcX5OqwixVO9-GYNPFkKLjTPH-sXLjgpizCsue3hPwG2Lw9IFwYKIjOSC0fyowUDk"></span><input
-                                                        name="recaptcha_response_field"
-                                                        id="recaptcha_response_field" type="text"
-                                                        autocorrect="off" autocapitalize="off"
-                                                        autocomplete="off"></div>
-                                        </td>
-                                        <td rowspan="4" class="recaptcha_r4_c2"></td>
-                                        <td><a id="recaptcha_reload_btn" title="Get a new challenge"
-                                               href="javascript:Recaptcha.reload();"><img id="recaptcha_reload"
-                                                                                          width="25" height="17"
-                                                                                          src="assets/images/refresh.gif"
-                                                                                          alt="Get a new challenge"></a>
-                                        </td>
-                                        <td rowspan="4" class="recaptcha_r4_c4"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a id="recaptcha_switch_audio_btn" class="recaptcha_only_if_image"
-                                               title="Get an audio challenge"
-                                               href="javascript:Recaptcha.switch_type('audio');"><img
-                                                id="recaptcha_switch_audio" width="25" height="16"
-                                                alt="Get an audio challenge"
-                                                src="assets/images/audio.gif"></a><a
-                                                id="recaptcha_switch_img_btn" class="recaptcha_only_if_audio"
-                                                title="Get a visual challenge"
-                                                href="javascript:Recaptcha.switch_type('image');"><img
-                                                id="recaptcha_switch_img" width="25" height="16"
-                                                alt="Get a visual challenge"
-                                                src="assets/images/text.gif"></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="recaptcha_r7_c1"></td>
-                                        <td class="recaptcha_r8_c1"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="form-input clearfix">
@@ -285,26 +181,19 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     <div class="auto-features">
         <h4 class="section-title section-line">Features</h4>
         <ul>
-            <li><span>Price</span> : 290000 USD</li>
-            <li><span>Make</span> : Mercedes</li>
-            <li><span>Model</span> : F800</li>
-            <li><span>Condition</span> : New Cars</li>
-            <li><span>Location</span> : Utah</li>
-            <li><span>City</span> : Salt Lake City</li>
-            <li><span>Mileage</span> : 99</li>
-            <li><span>Year</span> : 2011</li>
-            <li><span>Colour</span> : Gray</li>
-            <li><span>Fuel Type</span> : Petrol</li>
-            <li><span>Body Type</span> : Coupe</li>
-            <li><span>Doors</span> : 4</li>
-            <li><span>Cylinders</span> : 2800</li>
-            <li><span>Transmission</span> : Manual</li>
+            <li><span>Price</span> : <?php echo $car_row['price']; ?></li>
+            <li><span>Make</span> : <?php echo $car_row['vender_name']; ?></li>
+            <li><span>Model</span> : <?php echo $car_row['model_name']; ?></li>
+            <li><span>Condition</span> : <?php echo ucwords(str_replace("_"," ",$car_row['condition']));?></li>
+            <li><span>Location</span> : <?php echo $car_row['reg_city']; ?></li>
+            <li><span>Mileage</span> : <?php echo $car_row['mileage']; ?></li>
+            <li><span>Year</span> : <?php echo $car_row['year']; ?></li>
         </ul>
         <div class="clear"></div>
     </div>
     <!-- end - .auto-main-features -->
 
-    <!-- auto features -->
+    <!-- auto features
     <div class="auto-features">
         <h4 class="section-title section-line">Car Accessories</h4>
         <ul>
