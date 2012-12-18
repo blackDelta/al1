@@ -13,7 +13,7 @@ class Advertisement extends Image_Uploader
     var $message;
     var $tables = array('ad' => "advertisement", 'vender' => "vender", 'model' => "model");
     var $db;
-
+    var $stats = array();
     function __construct($db)
     {
         $this->db = $db;
@@ -50,17 +50,38 @@ class Advertisement extends Image_Uploader
 
         foreach($images as $pic){
             parent::upload_file($pic,$path);
-            $name_path = parent::$uploaded_filename_with_full_path;
-            $thumb1 = parent::make_thumb($new_path,$post['thumb'],190,150);
-            if($this->db->execute_query("insert into images set name_path = '".$name_path."',created_date=Now(),modified_date=now()",false)){
+            $name_path = $this->uploaded_filename_with_full_path;
+            $ext = end(explode(".",$name_path));
+            if($this->db->execute_query("insert into images set name_path = '".$name_path."',thumb_type='xlarge',created_date=Now(),modified_date=now()",false)){
+                $image_ids[] = $this->db->get_inserted_id();
+            }
+            $name_path_med = str_replace(".".$ext,"_medium.".$ext,$name_path);
+            $thumb1 = parent::make_thumb($name_path,$name_path_med,220,146);
+            if($this->db->execute_query("insert into images set name_path = '".$name_path_med."',thumb_type='medium',created_date=Now(),modified_date=now()",false)){
+                $image_ids[] = $this->db->get_inserted_id();
+            }
+            $name_path_small = str_replace(".".$ext,"_small.".$ext,$name_path);
+            $thumb2 = parent::make_thumb($name_path,$name_path_small,60,40);
+            if($this->db->execute_query("insert into images set name_path = '".$name_path_small."',thumb_type='small',created_date=Now(),modified_date=now()",false)){
+                $image_ids[] = $this->db->get_inserted_id();
+            }
+            $name_path_large = str_replace(".".$ext,"_large.".$ext,$name_path);
+            $thumb3 = parent::make_thumb($name_path,$name_path_large,300,200);
+
+            if($this->db->execute_query("insert into images set name_path = '".$name_path_large."',thumb_type='large',created_date=Now(),modified_date=now()",false)){
                 $image_ids[] = $this->db->get_inserted_id();
             }
         }
-        $inserted_id = null;
 
+        $inserted_id = null;
         if (is_array($data) and count($data) > 0) {
             if ($this->db->add_to_table($this->tables['ad'], $data))
             {
+                $inserted_id = $this->db->get_inserted_id();
+                for($i=0; $i<count($image_ids); $i++){
+                    $q = "insert into ad_images set image_id = '".$image_ids[$i]."', ad_id='".$inserted_id."'";
+                    $this->db->execute_query($q,false);
+                }
                 return true;
             } else {
                 $this->message = $this->db->get_message();
@@ -72,18 +93,6 @@ class Advertisement extends Image_Uploader
             return false;
         }
     }
-
-    function insert_image($image_name){
-
-        $query = "INSERT INTO images set name_path='".$image_name."', created_date=NOW(), modified_date=NOW()";
-        if($this->db->execute_query($query,FALSE))
-        {
-            return $this->db->get_inserted_id();
-        }else{
-            return false;
-        }
-    }
-
     function render_make_options()
     {
 
