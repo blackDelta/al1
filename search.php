@@ -28,7 +28,7 @@ FROM `gpk_db`.`advertisement`
   INNER JOIN `gpk_db`.`model`
     ON (`advertisement`.`model_id` = `model`.`id`)
   INNER JOIN `gpk_db`.`vender`
-    ON (`model`.`vender_id` = `vender`.`id`);";
+    ON (`model`.`vender_id` = `vender`.`id`) ";
 
 if($_REQUEST['action'] == 'search'){
     $make = request('s_make_model');
@@ -59,7 +59,7 @@ if($_REQUEST['action'] == 'search'){
     }
     $final_query = $query.$where;
     $search_result = $db->execute_query($final_query,true);
-    $car_count = $db->num_rows($final_query.$where);
+    $car_count = $db->num_rows($final_query);
 }else{
 
 }

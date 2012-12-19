@@ -17,7 +17,7 @@ $car_result = false;
 if (isset($_REQUEST['car']) and $_REQUEST['car'] > 0) {
     $adv_id = (int)request('car');
 
-    $query = "SELECT
+   $query = "SELECT
   `advertisement`.*,
   `vender`.`name`   AS `vender_name`,
   `model`.`name`    AS `model_name`,
@@ -34,7 +34,23 @@ WHERE `advertisement`.`vendor_id` = `vender`.`id`
     AND `advertisement`.`user_id` = `user`.`id`
     AND `advertisement`.`id` ='" . $adv_id . "'";
     $car_row = $db->fetch($db->execute_query($query, true));
-    $img_row = $db->fetch($db->execute_query("select * from ad_images where ad_id = '".$adv_id."'", true));
+     $images_query = "SELECT
+    `ad_images`.`ad_id`
+    , `ad_images`.`image_id`
+    , `images`.`name_path`
+    , `images`.`thumb_type`
+FROM
+    `gpk_db`.`ad_images`
+    INNER JOIN `gpk_db`.`advertisement`
+        ON (`ad_images`.`ad_id` = `advertisement`.`id`)
+    INNER JOIN `gpk_db`.`images`
+        ON (`ad_images`.`image_id` = `images`.`id`) where `ad_images`.`ad_id` = '".$adv_id."'";
+    $image_result = $db->execute_query($images_query,true);
+    while($img_row = $db->fetch($image_result))
+    {
+        $image_table[$img_row['thumb_type']][] = $img_row['name_path'];
+    }
+    //print_r($image_table['small']);die;
 } else {
     die("Insufficient parameters sent. <a href=\"" . $_SERVER['HTTP_REFERER'] . "\">Go Back</a>");
 }
@@ -73,7 +89,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 
     <div class="post-image grid_5 alpha">
         <a href="" rel="prettyPhoto[gallery]" class="image-zoom single-thumb-zoom">
-            <img src="assets/images/default-thumb7-380x253.jpg">
+            <img width="375" height="230" src="<?php echo $image_table['large'][0]; ?>">
             <span class="zoom-icon"></span>
         </a>
         <div class="clear"></div>
@@ -83,12 +99,14 @@ $page_description = "Some Description goes here. Some Description goes here. Som
         <div class="thumb-container tj_container clearfix" style="visibility: visible;">
             <div class="tj_wrapper">
                 <ul class="tj_gallery" style="position: relative;">
+                    <?php for($i= 0; i<count($image_table['small']); $i++){ ?>
                     <li style="position: absolute; left: 0px; top: 0px;" class="tj_row_1">
                         <a href="" rel="" class="image-zoom slide-thumb-zoom">
-                        <img width="90px" height="60px" src="assets/images/4405316335_bc6317b551_z-90x60.jpg">
+                        <img width="90px" height="60px" src="<?php echo $image_table['small'][$i]; ?>">
                             <span class="zoom-icon"></span>
                         </a>
                     </li>
+                        <?php } ?>
                 </ul>
             </div>
         </div>

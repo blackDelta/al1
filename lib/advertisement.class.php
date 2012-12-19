@@ -66,7 +66,7 @@ class Advertisement extends Image_Uploader
                 $image_ids[] = $this->db->get_inserted_id();
             }
             $name_path_large = str_replace(".".$ext,"_large.".$ext,$name_path);
-            $thumb3 = parent::make_thumb($name_path,$name_path_large,300,200);
+            $thumb3 = parent::make_thumb($name_path,$name_path_large,375,230);
 
             if($this->db->execute_query("insert into images set name_path = '".$name_path_large."',thumb_type='large',created_date=Now(),modified_date=now()",false)){
                 $image_ids[] = $this->db->get_inserted_id();
