@@ -57,6 +57,7 @@ if($_REQUEST['action'] == 'search'){
     {
        $where .= " AND `advertisement`.`price` <= ".$price_max." ";
     }
+    $where .= " GROUP BY `advertisement`.`model_id`;";
     $final_query = $query.$where;
     $search_result = $db->execute_query($final_query,true);
     $car_count = $db->num_rows($final_query);
@@ -96,12 +97,13 @@ $page_description = "Some Description goes here. Some Description goes here. Som
     */
     if($car_count > 0){
         while($car_row = $db->fetch($search_result)){
+            //print_r($car_row);
             ?>
     <!-- .post -->
     <div class="post-54 auto type-auto status-publish hentry custom-post-type clearfix" id="post-54">
         <div class="grid_3 clearfix alpha">
             <a href="" class="image-zoom main-thumb-zoom" target="_blank">
-                <img src="<?php echo $car_row['image']; ?>" width="222px" height="146px" class="attachment-main" alt="default-thumb"  title="default-thumb" height="146" width="220">
+                <img src="<?php echo $car_row['name_path']; ?>" width="222px" height="146px" class="attachment-main" alt="default-thumb"  title="default-thumb" height="146" width="220">
                 <span class="zoom-icon"></span>
             </a>
         </div>
@@ -110,7 +112,7 @@ $page_description = "Some Description goes here. Some Description goes here. Som
 
             <div class="grid_3 clearfix alpha">
                 <ul class="features">
-                    <li><span>Make</span> : <?php echo $car_row['vendor'] ?></li>
+                    <li><span>Make</span> : <?php echo $car_row['vender_name'] ?></li>
                     <li><span>Location</span> : <?php echo $car_row['reg_city']; ?></li>
                     <li><span>Mileage</span> : <?php echo $car_row['mileage']; ?></li>
                     <li><span>Year</span> : <?php echo $car_row['year']; ?></li>

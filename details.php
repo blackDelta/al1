@@ -50,7 +50,7 @@ FROM
     {
         $image_table[$img_row['thumb_type']][] = $img_row['name_path'];
     }
-    //print_r($image_table['small']);die;
+    //print_r($image_table);die;
 } else {
     die("Insufficient parameters sent. <a href=\"" . $_SERVER['HTTP_REFERER'] . "\">Go Back</a>");
 }
@@ -99,14 +99,19 @@ $page_description = "Some Description goes here. Some Description goes here. Som
         <div class="thumb-container tj_container clearfix" style="visibility: visible;">
             <div class="tj_wrapper">
                 <ul class="tj_gallery" style="position: relative;">
-                    <?php for($i= 0; i<count($image_table['small']); $i++){ ?>
-                    <li style="position: absolute; left: 0px; top: 0px;" class="tj_row_1">
+                    <?php
+                    //echo var_dump($image_table['small']);
+
+                    for($i= 0; $i<count($image_table['small']); $i++){ ?>
+                    <li style="" class="tj_row_1">
                         <a href="" rel="" class="image-zoom slide-thumb-zoom">
-                        <img width="90px" height="60px" src="<?php echo $image_table['small'][$i]; ?>">
+                        <img width="90px" height="60px" src="<?php echo trim($image_table['small'][$i]); ?>" />
                             <span class="zoom-icon"></span>
                         </a>
                     </li>
-                        <?php } ?>
+                    <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
